@@ -7,11 +7,12 @@ import {
   useGetTransactionsQuery,
 } from "@/state/api";
 import { useMemo } from "react";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import { Cell, Pie, PieChart } from "recharts";
 
 const Row3 = () => {
+  const isAboveMediumScreens = useMediaQuery("(min-width:1200px");
   const { data: transactionData } = useGetTransactionsQuery();
   const { data: productData } = useGetProductsQuery();
   const { data: kpiData } = useGetKpisQuery();
@@ -161,7 +162,38 @@ const Row3 = () => {
         >
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
-              <PieChart width={110} height={88}>
+              {isAboveMediumScreens ? (
+                <PieChart width={75} height={75}>
+                  <Pie
+                    stroke="none"
+                    data={data}
+                    innerRadius={18}
+                    outerRadius={35}
+                    paddingAngle={2}
+                    dataKey="value"
+                  >
+                    {data.map((i, index) => (
+                      <Cell key={`cell-${index}-${i}`} fill={pieColor[index]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              ) : (
+                <PieChart width={100} height={110}>
+                  <Pie
+                    stroke="none"
+                    data={data}
+                    innerRadius={18}
+                    outerRadius={35}
+                    paddingAngle={2}
+                    dataKey="value"
+                  >
+                    {data.map((i, index) => (
+                      <Cell key={`cell-${index}-${i}`} fill={pieColor[index]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              )}
+              {/* <PieChart width={75} height={75}>
                 <Pie
                   stroke="none"
                   data={data}
@@ -174,7 +206,7 @@ const Row3 = () => {
                     <Cell key={`cell-${index}-${i}`} fill={pieColor[index]} />
                   ))}
                 </Pie>
-              </PieChart>
+              </PieChart> */}
               <Typography variant="h5">{data[0].name}</Typography>
             </Box>
           ))}
