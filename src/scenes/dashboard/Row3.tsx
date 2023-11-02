@@ -170,8 +170,8 @@ const Row3 = () => {
                   paddingAngle={2}
                   dataKey="value"
                 >
-                  {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={pieColor[index]} />
+                  {data.map((i, index) => (
+                    <Cell key={`cell-${index}-${i}`} fill={pieColor[index]} />
                   ))}
                 </Pie>
               </PieChart>
