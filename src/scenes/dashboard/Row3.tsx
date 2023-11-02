@@ -7,8 +7,7 @@ import {
   useGetTransactionsQuery,
 } from "@/state/api";
 import { useMemo } from "react";
-import { useTheme } from "@emotion/react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import { Cell, Pie, PieChart } from "recharts";
 
@@ -153,10 +152,16 @@ const Row3 = () => {
       </DashboardBox>
       <DashboardBox gridArea={"i"}>
         <BoxHeader title="Expense Breakdown by Category" sideText="+4%" />
-        <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
+        <FlexBetween
+          mt="0.5rem"
+          gap="0.5rem"
+          p="0 1rem"
+          textAlign="center"
+          mb="0.5rem"
+        >
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
-              <PieChart width={110} height={100}>
+              <PieChart width={110} height={88}>
                 <Pie
                   stroke="none"
                   data={data}
